@@ -13,15 +13,50 @@
     />
   </head>
   <body>
-    <h1>Mongo from server</h1>
-    <p id="clientUser">User name</p>
+    <h2>Mongo from Server</h2>
+    <p id="userName">Name</p>
+
+    <div class="container">
+        <div class="row">
+            <input type="text" class="form-control" id="inputText">
+            <button class="btn btn-primary" id="addUser">Add user</button>
+        </div>
+    </div>
+    
+    </div>
 
     <script>
-      fetch("http://localhost:3000/friend/2")
-        .then((res) => res.json())
-        .then((data) => {
-          document.getElementById("clientUser").innerText = data.name;
-        });
+        fetch("http://localhost:3000/friend/2")
+          .then((res) => res.json())
+          .then((data) => {
+            // document.getElementById("userName").innerText = data.name;
+          });
+
+          // post
+
+          const addBtn = document.getElementById("addUser")
+
+          addBtn.addEventListener('click', () =>{
+                const user = document.getElementById('inputText').value;
+                const {name} = user;
+
+                fetch("http://localhost:3000/addUser",{
+                method: "POST",
+                body: JSON.stringify(name),
+                headers: 
+                {
+                    'Content-type': 'application/json; charset=UTF-8',
+                }
+            })
+            .then(res => res.json())
+            .then(data => updateUser(data));
+          });
+
+          const updateUser = (user) =>{
+            document.getElementById('userName').innerText = user.name;
+          }
+
+
     </script>
   </body>
 </html>

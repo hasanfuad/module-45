@@ -1,23 +1,29 @@
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser');
 
 const cors = require('cors');
 
 app.use(cors());
+app.use(bodyParser.json());
 
 
-app.get('/', (req, res) => {
-    res.send("Hello");
+const friendList = ['Hasib', 'Rahim', 'Karim', 'Tariq'];
+
+app.get('/friend/:id', (req, res)=>{
+    const userId = req.params.id;
+    const name = friendList[userId];
+    res.send({userId, name});
 });
 
-const friendList = ["Moniyem", "Hasib", "Tariq", "Wasif"];
-
-app.get('/friend/:id', (req, res) => {
-    const user = req.params.id;
-    const name = friendList[user];
-    res.send({user, name});
+app.post('/addUser', (req,res)=>{
+    const user = req.body;
+    user.id = 27;
+    const name = user;
+    res.send(name);
 })
 
+
 app.listen('3000', ()=>{
-    console.log("Server is listening from 3000");
+    console.log("Server is running on 3000");
 })
