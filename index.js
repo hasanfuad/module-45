@@ -10,17 +10,20 @@ app.use(bodyParser.json());
 
 const friendList = ['Hasib', 'Rahim', 'Karim', 'Tariq'];
 
+// get
+
 app.get('/friend/:id', (req, res)=>{
     const userId = req.params.id;
     const name = friendList[userId];
     res.send({userId, name});
 });
 
-app.post('/addUser', (req,res)=>{
+// post
+
+app.post('/addUser', (req, res)=>{
     const user = req.body;
     user.id = 27;
-    const name = user;
-    res.send(name);
+    res.send(user);
 })
 
 

@@ -19,10 +19,9 @@
     <div class="container">
         <div class="row">
             <input type="text" class="form-control" id="inputText">
-            <button class="btn btn-primary" id="addUser">Add user</button>
+            <button class="btn btn-primary" id="addUser">Add User</button>
         </div>
     </div>
-    
     </div>
 
     <script>
@@ -32,29 +31,31 @@
             // document.getElementById("userName").innerText = data.name;
           });
 
-          // post
+          
 
-          const addBtn = document.getElementById("addUser")
+          const addBtn = document.getElementById("addUser");
 
-          addBtn.addEventListener('click', () =>{
-                const user = document.getElementById('inputText').value;
-                const {name} = user;
+          addBtn.addEventListener('click', ()=>{
+              const name = document.getElementById('inputText').value;
+              const user = {name};
+              console.log(user);
 
-                fetch("http://localhost:3000/addUser",{
-                method: "POST",
-                body: JSON.stringify(name),
-                headers: 
-                {
-                    'Content-type': 'application/json; charset=UTF-8',
-                }
-            })
-            .then(res => res.json())
-            .then(data => updateUser(data));
-          });
+              fetch("http://localhost:3000/addUser", {
+              method: "POST",
+              body: JSON.stringify(user),
+              headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+                } 
+          })
+          .then(res => res.json())
+          .then(data => updateUser(data));
+          })
 
-          const updateUser = (user) =>{
-            document.getElementById('userName').innerText = user.name;
+          function updateUser(user){
+            document.getElementById("userName").innerText = user.name;
           }
+
+
 
 
     </script>
